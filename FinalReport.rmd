@@ -20,9 +20,13 @@ FinalData <- FinalData %>% mutate_if(is.character, as.factor)
 
 # Introduction
 
-A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
+A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of sub-populations tracked. Consider population subgroups by gender (guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
+
+For the purposes of this report, the words "study drug," "Covid91," and "study vaccination" will be used interchangeably.
 
 # Guys
+
+### Graphical Analysis 
 
 ```{r}
 Guys <- filter(FinalData, sex == "guy")
@@ -31,7 +35,27 @@ barchartGC(~infected + treatment, data = Guys)
 barchartGC(~infected + treatment, data = Guys, type="percent")
 ```
 
-This first bar chart compares the frequency of patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of people that are OK far outweigh those who have Covid, those who were infected with Covid were more often study-vaccination-users. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were 15% more  patients who were infected with Covid while having received the covid91 study vaccination. Overall, this indicates that the study vaccination is not only ineffective in men, but potentially even increases the likelihood of catching Covid-19.
+This first bar chart compares the frequency of patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of people that are OK far outweigh those who have Covid, those who were infected with Covid were more often study drug users. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were 10% more  patients who were infected with Covid while having received the covid91 study vaccination. Overall, this indicates that the study vaccination is not only ineffective in men, but potentially even increases the likelihood of catching Covid-19.
+
+### Numerical Analysis  
+
+```{r}
+table1 <- xtabs(~infected + treatment, data = Guys)
+colPerc(table1)
+rowPerc(table1)
+```
+
+These tables expands upon the graphical data found beforehand. The first table shows what percent of study drug users were infected with Covid or were OK, and the second table depicts what percent of those OK or infected with Covid received the study drug vs the placebo. The first table shows that nearly 97% of all the participants never received Covid-19. The second graph shows that there were around 10% more patients infected with Covid-19 who received the study drug than those who received the placebo. Overall, this indicates that the study vaccination is not only ineffective in men, but potentially even increases the likelihood of catching Covid-19.
+
+### Inferential Results
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+While the hypothesis states that there is a noticeable difference between study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 1.474 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 1.1767 to 1.8498. Thus, we reject the null hypothesis.
 
 # Girls
 
