@@ -1,5 +1,5 @@
 ---
-title: "Covid-19 Vaccine Study Final2021"
+title: "Covid-91 Vaccine Study Final2021"
 author: "Michael Maida"
 date: "4 December 2021"
 output: 
@@ -22,3 +22,21 @@ FinalData <- FinalData %>% mutate_if(is.character, as.factor)
 
 A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
 
+# Guys
+
+```{r}
+Guys <- filter(FinalData, sex == "guy")
+
+barchartGC(~infected + treatment, data = Guys)
+barchartGC(~infected + treatment, data = Guys, type="percent")
+```
+
+This first bar chart compares the frequency of patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of people that are OK far outweigh those who have Covid, those who were infected with Covid were more often study-vaccination-users. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were 15% more  patients who were infected with Covid while having received the covid91 study vaccination. Overall, this indicates that the study vaccination is not only ineffective in men, but potentially even increases the likelihood of catching Covid-19.
+
+# Girls
+
+# LGBTQ
+
+# Drug Users
+
+# Final Conclusions
