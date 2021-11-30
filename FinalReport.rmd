@@ -53,9 +53,18 @@ These tables expands upon the graphical data found beforehand. The first table s
 chisq.test(table1)
 chisqtestGC(table1)
 fisher.test(table1)
+
+Guymod <- fisher.test(table1)
 ```
 
-While the hypothesis states that there is a noticeable difference between study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 1.474 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 1.1767 to 1.8498. Thus, we reject the null hypothesis.
+While the hypothesis states that there is a noticeable difference between study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 1.474 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 1.1767 to 1.8498. Thus, we reject the null hypothesis.  Based on this, I would not recommend guys to receive the Covid91 study drug. 
+
+```{r}
+guyeff <- Guymod$estimate/(Guymod$estimate+1)
+options(digits=3)
+```
+
+The drug efficacy is `r guyeff` for males. 
 
 # Girls
 
