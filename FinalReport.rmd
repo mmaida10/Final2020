@@ -68,7 +68,88 @@ The drug efficacy is `r guyeff` for males.
 
 # Girls
 
+### Graphical Analysis 
+
+```{r}
+Girls <- filter(FinalData, sex == "gal")
+
+barchartGC(~infected + treatment, data = Girls)
+barchartGC(~infected + treatment, data = Girls, type="percent")
+```
+
+This first bar chart compares the frequency of patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of girls that are OK far outweigh those who have Covid, those who were infected with Covid were more often study drug users. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were around 30% more  patients who were infected with Covid while having received the Covid91 study vaccination. Overall, this indicates that the study vaccination is not only ineffective in women, but potentially even increases the likelihood of catching Covid-19.
+
+### Numerical Analysis  
+
+```{r}
+table1 <- xtabs(~infected + treatment, data = Girls)
+colPerc(table1)
+rowPerc(table1)
+```
+
+These tables expands upon the graphical data found beforehand. The first table shows what percent of study drug users were infected with Covid or were OK, and the second table depicts what percent of those OK or infected with Covid received the study drug vs the placebo. The first table shows that nearly 97% of all the participants never received Covid-19. The second graph shows that there were around 33% more patients infected with Covid-19 who received the study drug than those who received the placebo. Overall, this indicates that the study vaccination is not only ineffective in women, but potentially even increases the likelihood of catching Covid-19.
+
+### Inferential Results
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+
+Girlmod <- fisher.test(table1)
+```
+
+While the hypothesis states that there is a noticeable difference between female study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 0.489 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 0.409 to 0.584. Thus, we reject the null hypothesis.  Based on this, I would not recommend girls to receive the Covid91 study drug. 
+
+```{r}
+girleff <- Girlmod$estimate/(Girlmod$estimate+1)
+options(digits=3)
+```
+
+The drug efficacy is `r girleff` for females 
+
 # LGBTQ
+
+
+### Graphical Analysis 
+
+```{r}
+LGBTQ <- filter(FinalData, LGBTQ == "gay")
+
+barchartGC(~infected + treatment, data = LGBTQ)
+barchartGC(~infected + treatment, data = LGBTQ, type="percent")
+```
+
+This first bar chart compares the frequency of patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of people that are OK far outweigh those who have Covid, those who were infected with Covid were more often study drug users. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were 10% more  patients who were infected with Covid while having received the covid91 study vaccination. Overall, this indicates that the study vaccination is not only ineffective in men, but potentially even increases the likelihood of catching Covid-19.
+
+### Numerical Analysis  
+
+```{r}
+table1 <- xtabs(~infected + treatment, data = Guys)
+colPerc(table1)
+rowPerc(table1)
+```
+
+These tables expands upon the graphical data found beforehand. The first table shows what percent of study drug users were infected with Covid or were OK, and the second table depicts what percent of those OK or infected with Covid received the study drug vs the placebo. The first table shows that nearly 97% of all the participants never received Covid-19. The second graph shows that there were around 10% more patients infected with Covid-19 who received the study drug than those who received the placebo. Overall, this indicates that the study vaccination is not only ineffective in men, but potentially even increases the likelihood of catching Covid-19.
+
+### Inferential Results
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+
+Guymod <- fisher.test(table1)
+```
+
+While the hypothesis states that there is a noticeable difference between male study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 1.474 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 1.1767 to 1.8498. Thus, we reject the null hypothesis.  Based on this, I would not recommend guys to receive the Covid91 study drug. 
+
+```{r}
+guyeff <- Guymod$estimate/(Guymod$estimate+1)
+options(digits=3)
+```
+
+The drug efficacy is `r guyeff` for males. 
 
 # Drug Users
 
