@@ -62,15 +62,9 @@ Guysefflowereff <- (Guysmod$conf.int[1]/(Guysmod$conf.int[1]+1))*100
 options(digits = 3)
 ```
 
-While the hypothesis states that there is a noticeable difference between study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 1.474 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 1.1767 to 1.8498. Thus, we reject the null hypothesis since there is a clear difference--the males are more likely to receive Covid-19 after this vaccintion. 
+While the hypothesis states that there is a noticeable difference between study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 `r Guysmod$estimate` times less often than placebo users. This is based on a 95% confidence band from `r Guysmod$conf.int[1]` to `r Guysmod$conf.int[2]`. Thus, we reject the null hypothesis.  
 
-```{r}
-Guymod <- fisher.test(table1)
-guyeff <- (Guymod$estimate/(Guymod$estimate+1))*100
-options(digits=2)
-```
-
-The study drug is `r guyeff`% effective for males. Based on these factors, I would not recommend guys to receive the Covid91 study drug.  
+The study drug is `r Guyseff`% effective on male users, which is based on a confidence interval of `r Guysefflowereff` to `r Guyseffuppereff`. Based on these factors, I would not recommend male users to receive the Covid91 study drug. 
 
 # Girls
 
@@ -109,16 +103,9 @@ Girlsefflowereff <- (Girlsmod$conf.int[1]/(Girlsmod$conf.int[1]+1))*100
 options(digits = 3)
 ```
 
-While the hypothesis states that there is a noticeable difference between female study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 0.489 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 0.409 to 0.584. Thus, we reject the null hypothesis.  
+While the hypothesis states that there is a noticeable difference between female study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 `r Girlsmod$estimate` times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from `r Girlsmod$conf.int[1]` to `r Girlsmod$conf.int[2]`. Thus, we reject the null hypothesis.  
 
-```{r}
-Girlmod <- fisher.test(table1)
-girleff <- ((Girlmod$estimate/(Girlmod$estimate+1)))*100
-options(digits=1)
-girleff
-```
-
-The study drug is `r girleff`% effective on females. Based on these factors, I would recommend girls to receive the Covid91 study drug, since it is clearly effective. 
+The study drug is `r Girlseff`% effective on drug users, which is based on a confidence interval of `r Girlsefflowereff` to `r Girlseffuppereff`. Based on these factors, I would recommend drug users to receive the Covid91 study drug.  
 
 # LGBTQ
 
@@ -159,7 +146,7 @@ LGBTQefflowereff <- (LGBTQmod$conf.int[1]/(LGBTQmod$conf.int[1]+1))*100
 options(digits = 3)
 ```
 
-While the hypothesis states that there is a noticeable difference between gay study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 `r LGBTQmod$estimate` times more often than placebo users. The low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are low. This is based on a 95% confidence band from `r LGBTQmod$conf.int[1]` to `r LGBTQmod$conf.int[2]`. Thus, we reject the null hypothesis.  
+While the hypothesis states that there is a noticeable difference between gay study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 `r LGBTQmod$estimate` times less often than placebo users. The low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are low. This is based on a 95% confidence band from `r LGBTQmod$conf.int[1]` to `r LGBTQmod$conf.int[2]`. Thus, we reject the null hypothesis.  
 
 The study drug is `r LGBTQeff`% effective on homosexuals, which is based on a confidence interval of `r LGBTQefflowereff` to `r LGBTQeffuppereff`. Based on these factors, I would not recommend homosexuals to receive the Covid91 study drug. 
 
@@ -207,4 +194,4 @@ The study drug is `r drugusereff`% effective on drug users, which is based on a 
 
 # Final Conclusions
 
-In this study, we compared the 4 different groups to each other: we compared the efficacy of the covid91 study vaccination on Guys, Gals, Homosexuals, and Drug-users. We discovered that this study drug was innefficient in guys and homosexuals but effective in females and drug users. Overall, further experimentation is needed to determine how effective this drug will be, especially on groups like homosexual females or drug-using males.
+In this study, we compared the 4 different groups to each other: we compared the efficacy of the covid91 study vaccination on Guys, Gals, Homosexuals, and Drug-users. We discovered that this study drug was innefficient in guys and homosexuals but effective in females and drug users. Overall, further experimentation is needed to determine how effective this drug will be, especially on groups like homosexual females or drug-using males. 
