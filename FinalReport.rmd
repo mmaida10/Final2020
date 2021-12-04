@@ -54,6 +54,12 @@ These tables expands upon the graphical data found beforehand. The first table s
 chisq.test(table1)
 chisqtestGC(table1)
 fisher.test(table1)
+
+Guysmod <- fisher.test(table1)
+Guyseff <- (Guysmod$estimate/(Guysmod$estimate+1))*100
+Guyseffuppereff <- (Guysmod$conf.int[2]/(Guysmod$conf.int[2]+1))*100
+Guysefflowereff <- (Guysmod$conf.int[1]/(Guysmod$conf.int[1]+1))*100
+options(digits = 3)
 ```
 
 While the hypothesis states that there is a noticeable difference between study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 1.474 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 1.1767 to 1.8498. Thus, we reject the null hypothesis since there is a clear difference--the males are more likely to receive Covid-19 after this vaccintion. 
@@ -95,6 +101,12 @@ These tables expands upon the graphical data found beforehand. The first table s
 chisq.test(table1)
 chisqtestGC(table1)
 fisher.test(table1)
+
+Girlsmod <- fisher.test(table1)
+Girlseff <- (Girlsmod$estimate/(Girlsmod$estimate+1))*100
+Girlseffuppereff <- (Girlsmod$conf.int[2]/(Girlsmod$conf.int[2]+1))*100
+Girlsefflowereff <- (Girlsmod$conf.int[1]/(Girlsmod$conf.int[1]+1))*100
+options(digits = 3)
 ```
 
 While the hypothesis states that there is a noticeable difference between female study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 0.489 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 0.409 to 0.584. Thus, we reject the null hypothesis.  
