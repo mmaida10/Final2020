@@ -16,6 +16,7 @@ OldData <-read.csv(file="covid91.csv",header=TRUE)
 FinalData <- OldData %>% mutate(infected = recode(infected, aids = "covid", none = "OK" )) %>% select(-one_of("X"))
 
 FinalData <- FinalData %>% mutate_if(is.character, as.factor)
+FinalData$treatment <- relevel(FinalData$treatment, ref = "placebo")
 ```
 
 # Introduction
@@ -53,18 +54,17 @@ These tables expands upon the graphical data found beforehand. The first table s
 chisq.test(table1)
 chisqtestGC(table1)
 fisher.test(table1)
-
-Guymod <- fisher.test(table1)
 ```
 
-While the hypothesis states that there is a noticeable difference between study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 1.474 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 1.1767 to 1.8498. Thus, we reject the null hypothesis.  Based on this, I would not recommend guys to receive the Covid91 study drug. 
+While the hypothesis states that there is a noticeable difference between study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 1.474 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 1.1767 to 1.8498. Thus, we reject the null hypothesis since there is a clear difference--the males are more likely to receive Covid-19 after this vaccintion. 
 
 ```{r}
-guyeff <- Guymod$estimate/(Guymod$estimate+1)
-options(digits=3)
+Guymod <- fisher.test(table1)
+guyeff <- (Guymod$estimate/(Guymod$estimate+1))*100
+options(digits=2)
 ```
 
-The drug efficacy is `r guyeff` for males. 
+The study drug is `r guyeff`% effective for males. Based on these factors, I would not recommend guys to receive the Covid91 study drug.  
 
 # Girls
 
@@ -77,7 +77,7 @@ barchartGC(~infected + treatment, data = Girls)
 barchartGC(~infected + treatment, data = Girls, type="percent")
 ```
 
-This first bar chart compares the frequency of patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of girls that are OK far outweigh those who have Covid, those who were infected with Covid were more often study drug users. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were around 30% more  patients who were infected with Covid while having received the Covid91 study vaccination. Overall, this indicates that the study vaccination is not only ineffective in women, but potentially even increases the likelihood of catching Covid-19.
+This first bar chart compares the frequency of patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of girls that are OK far outweigh those who have Covid, those who were infected with Covid were less often study drug users. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were around 30% more  patients who were not infected with Covid while having received the Covid91 study vaccination. Overall, this indicates that the study vaccination is likely effective in women.
 
 ### Numerical Analysis  
 
@@ -87,7 +87,7 @@ colPerc(table1)
 rowPerc(table1)
 ```
 
-These tables expands upon the graphical data found beforehand. The first table shows what percent of study drug users were infected with Covid or were OK, and the second table depicts what percent of those OK or infected with Covid received the study drug vs the placebo. The first table shows that nearly 97% of all the participants never received Covid-19. The second graph shows that there were around 33% more patients infected with Covid-19 who received the study drug than those who received the placebo. Overall, this indicates that the study vaccination is not only ineffective in women, but potentially even increases the likelihood of catching Covid-19.
+These tables expands upon the graphical data found beforehand. The first table shows what percent of female study drug users were infected with Covid or were OK, and the second table depicts what percent of those OK or infected with Covid received the study drug vs the placebo. The first table shows that nearly 95% of all the participants never received Covid-19. The second graph shows that there were around 33% more patients who were not infected with Covid-19 who received the study drug than those who received the placebo. Overall, this indicates that the study vaccination is likely effective in women.
 
 ### Inferential Results
 
@@ -95,18 +95,18 @@ These tables expands upon the graphical data found beforehand. The first table s
 chisq.test(table1)
 chisqtestGC(table1)
 fisher.test(table1)
-
-Girlmod <- fisher.test(table1)
 ```
 
-While the hypothesis states that there is a noticeable difference between female study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 0.489 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 0.409 to 0.584. Thus, we reject the null hypothesis.  Based on this, I would not recommend girls to receive the Covid91 study drug. 
+While the hypothesis states that there is a noticeable difference between female study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 0.489 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 0.409 to 0.584. Thus, we reject the null hypothesis.  
 
 ```{r}
-girleff <- Girlmod$estimate/(Girlmod$estimate+1)
-options(digits=3)
+Girlmod <- fisher.test(table1)
+girleff <- ((Girlmod$estimate/(Girlmod$estimate+1)))*100
+options(digits=1)
+girleff
 ```
 
-The drug efficacy is `r girleff` for females 
+The study drug is `r girleff`% effective on females. Based on these factors, I would recommend girls to receive the Covid91 study drug, since it is clearly effective. 
 
 # LGBTQ
 
@@ -118,19 +118,20 @@ LGBTQ <- filter(FinalData, LGBTQ == "gay")
 
 barchartGC(~infected + treatment, data = LGBTQ)
 barchartGC(~infected + treatment, data = LGBTQ, type="percent")
+options(digits=3)
 ```
 
-This first bar chart compares the frequency of patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of people that are OK far outweigh those who have Covid, those who were infected with Covid were more often study drug users. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were 10% more  patients who were infected with Covid while having received the covid91 study vaccination. Overall, this indicates that the study vaccination is not only ineffective in men, but potentially even increases the likelihood of catching Covid-19.
+This first bar chart compares the frequency of gay patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of people that are OK far outweigh those who have Covid, those who were were infected with Covid-19 were more often study drug users. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were around 40% more  patients who were  infected with Covid while having received the covid91 study vaccination. Overall, this indicates that the study vaccination is very likely ineffective in homosexuals.
 
 ### Numerical Analysis  
 
 ```{r}
-table1 <- xtabs(~infected + treatment, data = Guys)
+table1 <- xtabs(~infected + treatment, data = LGBTQ)
 colPerc(table1)
 rowPerc(table1)
 ```
 
-These tables expands upon the graphical data found beforehand. The first table shows what percent of study drug users were infected with Covid or were OK, and the second table depicts what percent of those OK or infected with Covid received the study drug vs the placebo. The first table shows that nearly 97% of all the participants never received Covid-19. The second graph shows that there were around 10% more patients infected with Covid-19 who received the study drug than those who received the placebo. Overall, this indicates that the study vaccination is not only ineffective in men, but potentially even increases the likelihood of catching Covid-19.
+These tables expands upon the graphical data found beforehand. The first table shows what percent of study drug users were infected with Covid or were OK, and the second table depicts what percent of those OK or infected with Covid received the study drug vs the placebo. The first table shows that nearly 96% of all the participants never received Covid-19. The second graph shows that there were around 41% more patients infected with Covid-19 who received the study drug than those who received the placebo. Overall, this indicates that the study vaccination is not only ineffective in homosexuals, but potentially even increases the likelihood of catching Covid-19.
 
 ### Inferential Results
 
@@ -139,18 +140,58 @@ chisq.test(table1)
 chisqtestGC(table1)
 fisher.test(table1)
 
-Guymod <- fisher.test(table1)
+LGBTQmod <- fisher.test(table1)
+LGBTQeff <- (LGBTQmod$estimate/(LGBTQmod$estimate+1))*100
+LGBTQeffuppereff <- (LGBTQmod$conf.int[2]/(LGBTQmod$conf.int[2]+1))*100
+LGBTQefflowereff <- (LGBTQmod$conf.int[1]/(LGBTQmod$conf.int[1]+1))*100
+options(digits = 3)
 ```
 
-While the hypothesis states that there is a noticeable difference between male study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 1.474 times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from 1.1767 to 1.8498. Thus, we reject the null hypothesis.  Based on this, I would not recommend guys to receive the Covid91 study drug. 
+While the hypothesis states that there is a noticeable difference between gay study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 `r LGBTQmod$estimate` times more often than placebo users. The low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are low. This is based on a 95% confidence band from `r LGBTQmod$conf.int[1]` to `r LGBTQmod$conf.int[2]`. Thus, we reject the null hypothesis.  
 
-```{r}
-guyeff <- Guymod$estimate/(Guymod$estimate+1)
-options(digits=3)
-```
-
-The drug efficacy is `r guyeff` for males. 
+The study drug is `r LGBTQeff`% effective on homosexuals, which is based on a confidence interval of `r LGBTQefflowereff` to `r LGBTQeffuppereff`. Based on these factors, I would not recommend homosexuals to receive the Covid91 study drug. 
 
 # Drug Users
 
+### Graphical Analysis 
+
+```{r}
+druguser <- filter(FinalData, DrugUser == "yes")
+
+barchartGC(~infected + treatment, data = druguser)
+barchartGC(~infected + treatment, data = druguser, type="percent")
+options(digits=3)
+```
+
+This first bar chart compares the frequency of drug-using patients that take the study vaccination versus those who don't when they have Covid or OK. It shows that, while the number of people that are OK far outweigh those who have Covid, those who were were infected with Covid-19 were more often taking the placebo. The second bar chart, which compares the percentages of patients with and without the study vaccination, shows that there were around 30% more  patients who were not infected with Covid while having received the covid91 study vaccination. Overall, this indicates that the study vaccination is very likely effective in drug users.
+
+### Numerical Analysis  
+
+```{r}
+table1 <- xtabs(~infected + treatment, data = druguser)
+colPerc(table1)
+rowPerc(table1)
+```
+
+These tables expands upon the graphical data found beforehand. The first table shows what percent of study drug users were infected with Covid or were OK, and the second table depicts what percent of those OK or infected with Covid received the study drug vs the placebo. The first table shows that nearly 94% of all the participants never received Covid-19. The second graph shows that there were around 33% less patients infected with Covid-19 who received the study drug than those who received the placebo. Overall, this indicates that the study vaccination is likely effective in drug users.
+
+### Inferential Results
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+
+drugusermod <- fisher.test(table1)
+drugusereff <- (drugusermod$estimate/(drugusermod$estimate+1))*100
+drugusereffuppereff <- (drugusermod$conf.int[2]/(drugusermod$conf.int[2]+1))*100
+druguserefflowereff <- (drugusermod$conf.int[1]/(drugusermod$conf.int[1]+1))*100
+options(digits = 3)
+```
+
+While the hypothesis states that there is a noticeable difference between drug-using study drug users versus drug-using placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 `r drugusermod$estimate` times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from `r drugusermod$conf.int[1]` to `r drugusermod$conf.int[2]`. Thus, we reject the null hypothesis.  
+
+The study drug is `r drugusereff`% effective on drug users, which is based on a confidence interval of `r druguserefflowereff` to `r drugusereffuppereff`. Based on these factors, I would recommend drug users to receive the Covid91 study drug. 
+
 # Final Conclusions
+
