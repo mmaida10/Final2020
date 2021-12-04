@@ -195,3 +195,4 @@ The study drug is `r drugusereff`% effective on drug users, which is based on a 
 
 # Final Conclusions
 
+In this study, we compared the 4 different groups to each other: we compared the efficacy of the covid91 study vaccination on Guys, Gals, Homosexuals, and Drug-users. We discovered that this study drug was innefficient in guys and homosexuals but effective in females and drug users. Overall, further experimentation is needed to determine how effective this drug will be, especially on groups like homosexual females or drug-using males.
