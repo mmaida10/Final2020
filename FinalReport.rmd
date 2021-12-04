@@ -105,7 +105,7 @@ options(digits = 3)
 
 While the hypothesis states that there is a noticeable difference between female study drug users versus placebo users, the null hypothesis submits that there is little to no difference between study drug users and placebo users in the getting infected with Covid-19. To test this, the chi square test and Fisher test were run, which indicated study drug users were infected with Covid-19 `r Girlsmod$estimate` times more often than placebo users. The extremely low P-values shown above also indicate that the chance this result would be shown under the conditions of the null-hypothesis are extremely low. This is based on a 95% confidence band from `r Girlsmod$conf.int[1]` to `r Girlsmod$conf.int[2]`. Thus, we reject the null hypothesis.  
 
-The study drug is `r Girlseff`% effective on drug users, which is based on a confidence interval of `r Girlsefflowereff` to `r Girlseffuppereff`. Based on these factors, I would recommend drug users to receive the Covid91 study drug.  
+The study drug is `r Girlseff`% effective on drug users, which is based on a confidence interval of `r Girlsefflowereff` to `r Girlseffuppereff`. Based on these factors, I would recommend gals to receive the Covid91 study drug.  
 
 # LGBTQ
 
